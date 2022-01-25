@@ -68,7 +68,7 @@ function render() {
 }
 animate();
 
-const osc: Tone.Oscillator = new Tone.Oscillator(440, "sine").toDestination();
+const osc: Tone.Oscillator = new Tone.Oscillator(1440, "sine").toDestination();
 
 window.addEventListener('mousedown', e => {
     osc.start();
