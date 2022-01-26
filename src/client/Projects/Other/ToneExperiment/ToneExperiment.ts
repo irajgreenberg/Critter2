@@ -84,8 +84,33 @@ export class ToneExperiment extends Group {
                 this.parts[i].spd.z *= -1;
             }
         }
+    }
 
-
+    print() {
+        console.log("**************************************************************************");
+        console.log("Red Cube Position = ", this.partRed.pos);
+        console.log("Red Cube Speed = ", this.partRed.spd);
+        console.log("--------------------------------------------------------------------------");
+        console.log("-------------------------------------------------------------------------");
+        console.log("Blue Cube Position = ", this.partBlue.pos);
+        console.log("Blue Cube Speed = ", this.partBlue.spd);
+        console.log("-------------------------------------------------------------------------");
+        console.log("-------------------------------------------------------------------------");
+        console.log("Green Cube Position = ", this.partGreen.pos)
+        console.log("Green Cube Speed = ", this.partGreen.spd)
+        console.log("-------------------------------------------------------------------------");
+        console.log("-------------------------------------------------------------------------");
+        console.log("Yellow Cube Position = ", this.partYellow.pos)
+        console.log("Yellow Cube Speed = ", this.partYellow.spd)
+        console.log("-------------------------------------------------------------------------");
+        console.log("-------------------------------------------------------------------------");
+        console.log("White Cube Position = ", this.partWhite.pos)
+        console.log("White Cube Speed = ", this.partWhite.spd)
+        console.log("-------------------------------------------------------------------------");
+        console.log("-------------------------------------------------------------------------");
+        console.log("Black Cube Position = ", this.partBlack.pos)
+        console.log("Black Cube Speed = ", this.partBlack.spd)
+        console.log("**************************************************************************");
     }
 
 }

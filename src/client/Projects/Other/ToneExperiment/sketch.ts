@@ -61,6 +61,7 @@ function animate() {
 
     const time = Date.now();
     te.move(time);
+    te.print();
     render();
 }
 
