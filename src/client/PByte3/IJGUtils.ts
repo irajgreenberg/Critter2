@@ -155,7 +155,7 @@ export class PBMath {
 
 }
 
-export class particle extends Group {
+export class Particle extends Group {
     pos: Vector3;
     spd: Vector3;
     rad: number;
