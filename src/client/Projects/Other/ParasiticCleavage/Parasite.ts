@@ -5,7 +5,7 @@
 
 import { BufferGeometry, CatmullRomCurve3, Color, Group, Line, LineBasicMaterial, Mesh, MeshPhongMaterial, RepeatWrapping, TextureLoader, Vector2, Vector3 } from "three";
 import { randFloat } from "three/src/math/MathUtils";
-import { cos, FuncType, particle, PI, sin, TWO_PI } from "../../../PByte3/IJGUtils";
+import { cos, FuncType, Particle, PI, sin, TWO_PI } from "../../../PByte3/IJGUtils";
 import { ProtoTubeGeometry } from "../../../PByte3/ProtoTubeGeometry";
 
 export class Parasite extends Group {
@@ -20,7 +20,7 @@ export class Parasite extends Group {
     curveMesh: Line;
 
     partCount: number;
-    parts: particle[] = [];
+    parts: Particle[] = [];
     thetas: number[] = [];
     amps: number[] = [];
     frqs: number[] = [];
@@ -62,7 +62,7 @@ export class Parasite extends Group {
             this.pts[i] = pos;
             let spd = new Vector3(randFloat(-4.8, 4.8), randFloat(-4.8, 4.8), randFloat(-4.8, 4.8));
             let g = Math.random() * 0xff;
-            this.parts[i] = new particle(pos, spd, 1, new Color(g, g, g));
+            this.parts[i] = new Particle(pos, spd, 1, new Color(g, g, g));
             this.add(this.parts[i]);
 
             this.thetas[i] = i * PI / 180;

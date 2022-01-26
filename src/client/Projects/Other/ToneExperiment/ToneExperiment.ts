@@ -3,27 +3,89 @@
 // Bacon Bits Cooperative
 // Dallas, TX
 
-import { Group, Vector3 } from "three";
-import { FuncType } from "../../../PByte3/IJGUtils";
-import * as Tone from 'tone'
+import { BoxGeometry, Color, Group, Mesh, MeshBasicMaterial, Vector3 } from "three";
+import { randFloat } from "three/src/math/MathUtils";
+import { Particle } from "../../../PByte3/IJGUtils";
 
 export class ToneExperiment extends Group {
 
+    cubeMesh: Mesh
+
+    partRed: Particle;
+    partBlue: Particle;
+    partGreen: Particle;
+    partYellow: Particle;
+    partBlack: Particle;
+    partWhite: Particle;
+
+    parts: Particle[] = [];
+
+
     constructor() {
         super();
-        this.create();
+        let gen = new BoxGeometry(800, 800, 800);
+        let mat = new MeshBasicMaterial({ color: 0x994422, wireframe: true });
+        this.cubeMesh = new Mesh(gen, mat);
+        this.add(this.cubeMesh);
+
+        this.partRed = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(1, 0, 0));
+        this.partBlue = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(0, 0, 1));
+        this.partGreen = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(0, 1, 0));
+        this.partYellow = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(1, 1, 0));
+        this.partBlack = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(.1, .1, .1));
+        this.partWhite = new Particle(new Vector3(0, 0, 0), new Vector3(randFloat(-5, 5), randFloat(-5, 5), randFloat(-5, 5)), 20, new Color(.9, .9, .9));
+
+        this.add(this.partRed);
+        this.add(this.partBlue);
+        this.add(this.partGreen);
+        this.add(this.partYellow);
+        this.add(this.partBlack);
+        this.add(this.partWhite);
+
+        this.parts.push(this.partRed);
+        this.parts.push(this.partBlue);
+        this.parts.push(this.partGreen);
+        this.parts.push(this.partYellow);
+        this.parts.push(this.partWhite);
+        this.parts.push(this.partBlack);
     }
 
-    create() {
-
-        //create a synth and connect it to the main output (your speakers)
-        const synth = new Tone.Synth().toDestination();
-
-        //play a middle 'C' for the duration of an 8th note
-        synth.triggerAttackRelease("C4", "8n");
-    }
 
     move(time: number) {
+        this.partRed.move();
+        this.partBlue.move();
+        this.partGreen.move();
+        this.partYellow.move();
+        this.partBlack.move();
+        this.partWhite.move();
+
+        for (let i = 0; i < this.parts.length; i++) {
+            if (this.parts[i].pos.x >= this.cubeMesh.position.x + 400) {
+                this.parts[i].pos.x == this.cubeMesh.position.x + 400;
+                this.parts[i].spd.x *= -1;
+            } else if (this.parts[i].pos.x <= this.cubeMesh.position.x - 400) {
+                this.parts[i].pos.x == this.cubeMesh.position.x - 400;
+                this.parts[i].spd.x *= -1;
+            }
+
+            if (this.parts[i].pos.y >= this.cubeMesh.position.y + 400) {
+                this.parts[i].pos.y == this.cubeMesh.position.y + 400;
+                this.parts[i].spd.y *= -1;
+            } else if (this.parts[i].pos.y <= this.cubeMesh.position.y - 400) {
+                this.parts[i].pos.y == this.cubeMesh.position.y - 400;
+                this.parts[i].spd.y *= -1;
+            }
+
+            if (this.parts[i].pos.z >= this.cubeMesh.position.z + 400) {
+                this.parts[i].pos.z == this.cubeMesh.position.z + 400;
+                this.parts[i].spd.z *= -1;
+            } else if (this.parts[i].pos.z <= this.cubeMesh.position.z - 400) {
+                this.parts[i].pos.z == this.cubeMesh.position.z - 400;
+                this.parts[i].spd.z *= -1;
+            }
+        }
+
+
     }
 
 }

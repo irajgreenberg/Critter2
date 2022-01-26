@@ -14,10 +14,10 @@ import * as Tone from 'tone'
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
 camera.position.x = 0;
 camera.position.y = 0;
-camera.position.z = 400;
+camera.position.z = 1000;
 
 const scene = new Scene();
-scene.background = new Color(0x00000);
+scene.background = new Color(0x999999);
 
 // main renderer
 let renderer = new WebGLRenderer({ antialias: true });
@@ -29,7 +29,8 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 /****************** Custom geometry *******************/
-
+const te = new ToneExperiment();
+scene.add(te);
 /******************************************************/
 
 const ambientTexturesLight = new AmbientLight(0xFFFFFF, .7);
@@ -58,8 +59,8 @@ function animate() {
     controls.update();
     controls.autoRotate = true;
 
-    const time = Date.now() * 0.007;
-
+    const time = Date.now();
+    te.move(time);
     render();
 }
 
