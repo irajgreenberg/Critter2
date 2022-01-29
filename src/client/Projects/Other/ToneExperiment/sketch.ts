@@ -70,6 +70,12 @@ function render() {
 }
 animate();
 
+//attach a click listener to a play button
+document.querySelector('button')?.addEventListener('click', async () => {
+	await Tone.start()
+	console.log('audio is ready')
+})
+
 //const osc = new Tone.Oscillator().toDestination().start();
 //osc.frequency.rampTo(te.partBlue.pos.y + 500,2);
 
