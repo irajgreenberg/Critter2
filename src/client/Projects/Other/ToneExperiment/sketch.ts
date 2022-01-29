@@ -9,6 +9,7 @@ import { AmbientLight, Color, DirectionalLight, PCFSoftShadowMap, PerspectiveCam
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ToneExperiment } from './ToneExperiment';
 import * as Tone from 'tone'
+import { PI, sin } from '../../../PByte3/IJGUtils';
 
 // create and position camera
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
@@ -27,6 +28,7 @@ renderer.shadowMap.type = PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
 
 /****************** Custom geometry *******************/
 const te = new ToneExperiment();
@@ -63,6 +65,7 @@ function animate() {
     te.move(time);
     te.print();
     render();
+    osc.frequency.rampTo(te.partBlue.pos.y + 500, 2);
 }
 
 function render() {
@@ -72,16 +75,16 @@ animate();
 
 //attach a click listener to a play button
 document.querySelector('button')?.addEventListener('click', async () => {
-	await Tone.start()
-	console.log('audio is ready')
+    await Tone.start()
+    console.log('audio is ready')
 })
 
 //const osc = new Tone.Oscillator().toDestination().start();
 //osc.frequency.rampTo(te.partBlue.pos.y + 500,2);
 
-const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
-window.addEventListener('mousedown', e => { osc.start(); osc.frequency.rampTo(te.partBlue.pos.y + 500,2);});
+
+window.addEventListener('mousedown', e => { osc.start(); osc.frequency.rampTo(sin(te.partBlue.pos.y * PI / .05) * 800 + 500, 2); });
 
 //window.addEventListener('mousedown', e => { osc.start();});
 
-window.addEventListener('mouseup', e => {  osc.stop(); });
+//window.addEventListener('mouseup', e => { osc.stop(); });
