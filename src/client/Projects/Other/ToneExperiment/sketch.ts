@@ -70,13 +70,12 @@ function render() {
 }
 animate();
 
-const osc: Tone.Oscillator = new Tone.Oscillator(1440, "sine").toDestination();
+//const osc = new Tone.Oscillator().toDestination().start();
+//osc.frequency.rampTo(te.partBlue.pos.y + 500,2);
 
-window.addEventListener('mousedown', e => {
-    osc.start();
+const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
+window.addEventListener('mousedown', e => { osc.start(); osc.frequency.rampTo(te.partBlue.pos.y + 500,2);});
 
-});
+//window.addEventListener('mousedown', e => { osc.start();});
 
-window.addEventListener('mouseup', e => {
-    osc.stop();
-});
+window.addEventListener('mouseup', e => {  osc.stop(); });

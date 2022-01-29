@@ -90,13 +90,14 @@ export class ToneExperiment extends Group {
 
     print() {
         //console.log("**************************************************************************");
-        console.log("Red Cube Position x = ", this.partRed.pos.x);
-        console.log("Red Cube Position y = ", this.partRed.pos.y);
-        console.log("Red Cube Position z = ", this.partRed.pos.z);
-        console.log("Red Cube Position = ", this.partRed.pos);
+        //console.log("Red Cube Position x = ", this.partRed.pos.x);
+        //console.log("Red Cube Position y = ", this.partRed.pos.y);
+        //console.log("Red Cube Position z = ", this.partRed.pos.z);
+        //console.log("Red Cube Position = ", this.partRed.pos);
         //console.log("Red Cube Speed = ", this.partRed.spd);
         //console.log("--------------------------------------------------------------------------");
         //console.log("-------------------------------------------------------------------------");
+        console.log("Blue Cube Position y = ", this.partBlue.pos.y);
         //console.log("Blue Cube Position = ", this.partBlue.pos);
         //console.log("Blue Cube Speed = ", this.partBlue.spd);
         //console.log("-------------------------------------------------------------------------");
