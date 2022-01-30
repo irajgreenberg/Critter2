@@ -83,8 +83,9 @@ document.querySelector('button')?.addEventListener('click', async () => {
 //osc.frequency.rampTo(te.partBlue.pos.y + 500,2);
 
 
-window.addEventListener('mousedown', e => { osc.start(); osc.frequency.rampTo(sin(te.partBlue.pos.y * PI / .05) * 800 + 500, 2); });
+window.addEventListener('mousedown', e => { osc.start(); });
 
+// osc.frequency.rampTo(sin(te.partBlue.pos.y * PI / .05) * 800 + 500, 2); });
 //window.addEventListener('mousedown', e => { osc.start();});
 
 //window.addEventListener('mouseup', e => { osc.stop(); });
