@@ -28,13 +28,29 @@ renderer.shadowMap.type = PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+
+// Tone Const here  NOTE: effects like reverb first
 //const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
-const osc1 = new Tone.Oscillator().toDestination();
-const osc2 = new Tone.Oscillator().toDestination();
-const osc3 = new Tone.Oscillator().toDestination();
-const osc4 = new Tone.Oscillator().toDestination();
-const osc5 = new Tone.Oscillator().toDestination();
-const osc6 = new Tone.Oscillator().toDestination();
+//const osc1 = new Tone.Oscillator().toDestination();
+const reverb1 = new Tone.Reverb(2).toDestination();
+const reverb2 = new Tone.Reverb(2).toDestination();
+const reverb3 = new Tone.Reverb(2).toDestination();
+const reverb4 = new Tone.Reverb(2).toDestination();
+const reverb5 = new Tone.Reverb(2).toDestination();
+const reverb6 = new Tone.Reverb(2).toDestination();
+// === const osc1 = new Tone.Oscillator().toDestination(); // original
+const panner1 = new Tone.Panner(1).connect(reverb1);
+const osc1 = new Tone.Oscillator().connect(panner1);
+const panner2 = new Tone.Panner(1).connect(reverb2);
+const osc2 = new Tone.Oscillator().connect(panner2);
+const panner3 = new Tone.Panner(1).connect(reverb3);
+const osc3 = new Tone.Oscillator().connect(panner3);
+const panner4 = new Tone.Panner(1).connect(reverb4);
+const osc4 = new Tone.Oscillator().connect(panner4);
+const panner5 = new Tone.Panner(1).connect(reverb5);
+const osc5 = new Tone.Oscillator().connect(panner5);
+const panner6 = new Tone.Panner(1).connect(reverb6);
+const osc6 = new Tone.Oscillator().connect(panner6);
 /****************** Custom geometry *******************/
 const te = new ToneExperiment();
 scene.add(te);
@@ -74,16 +90,33 @@ function animate() {
     //const osc1 = new Tone.Oscillator().toDestination().start();
     //const osc2 = new Tone.Oscillator().toDestination().start();
     window.addEventListener('mousedown', e => {  
-        osc1.start(); osc2.start(); 
-        osc3.start(); osc4.start();
-        osc5.start(); osc6.start();
+        osc1.start(); 
+        osc2.start(); 
+        osc3.start(); 
+        osc4.start();
+        osc5.start(); 
+        osc6.start();
     });
-    osc1.frequency.rampTo(te.partBlue.pos.y + 500, 2);
-    osc2.frequency.rampTo(te.partRed.pos.y + 500, 2);
-    osc3.frequency.rampTo(te.partGreen.pos.y + 500, 2);
-    osc4.frequency.rampTo(te.partBlack.pos.y + 500, 2);
-    osc5.frequency.rampTo(te.partYellow.pos.y + 500, 2);
-    osc6.frequency.rampTo(te.partWhite.pos.y + 500, 2);
+
+    osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
+    panner1.pan.rampTo(te.partBlue.pos.x * (1/402), 0.001);  // .0025 = 1/400 gets out of range errors
+    reverb1.wet.value = ((te.partBlue.pos.z * -1.0) + 400) * 0.0012498;
+    
+    osc2.frequency.rampTo(te.partRed.pos.y + 500, 0.25);
+    panner2.pan.rampTo(te.partRed.pos.x * (1/402), 0.001); 
+    reverb2.wet.value = ((te.partRed.pos.z * -1.0) + 400) * (1/804);
+    osc3.frequency.rampTo(te.partGreen.pos.y + 500, 0.25);
+    panner3.pan.rampTo(te.partGreen.pos.x * (1/402), 0.001); 
+    reverb3.wet.value = ((te.partGreen.pos.z * -1.0) + 400) * (1/804);
+    osc4.frequency.rampTo(te.partBlack.pos.y + 500, 0.25);
+    panner4.pan.rampTo(te.partBlack.pos.x * (1/402), 0.001); 
+    reverb4.wet.value = ((te.partBlack.pos.z * -1.0) + 400) * (1/804);
+    osc5.frequency.rampTo(te.partYellow.pos.y + 500, 0.25);
+    panner5.pan.rampTo(te.partYellow.pos.x * (1/402), 0.001); 
+    reverb5.wet.value = ((te.partYellow.pos.z * -1.0) + 400) * (1/804);
+    osc6.frequency.rampTo(te.partWhite.pos.y + 500, 0.25);
+    panner6.pan.rampTo(te.partWhite.pos.x * (1/402), 0.001); 
+    reverb6.wet.value = ((te.partWhite.pos.z * -1.0) + 400) * (1/804);
 }
 
 function render() {
@@ -113,4 +146,4 @@ animate();
 // osc.frequency.rampTo(sin(te.partBlue.pos.y * PI / .05) * 800 + 500, 2); });
 //window.addEventListener('mousedown', e => { osc.start();});
 
-//window.addEventListener('mouseup', e => { osc.stop(); });
+//window.addEventListener('mouseup', e => { osc.stop(); });git

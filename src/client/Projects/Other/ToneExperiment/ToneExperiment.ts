@@ -97,7 +97,7 @@ export class ToneExperiment extends Group {
         //console.log("Red Cube Speed = ", this.partRed.spd);
         //console.log("--------------------------------------------------------------------------");
         //console.log("-------------------------------------------------------------------------");
-        console.log("Blue Cube Position y = ", this.partBlue.pos.y);
+        //console.log("Blue Cube Position y = ", this.partBlue.pos.x);
         //console.log("Blue Cube Position = ", this.partBlue.pos);
         //console.log("Blue Cube Speed = ", this.partBlue.spd);
         //console.log("-------------------------------------------------------------------------");
