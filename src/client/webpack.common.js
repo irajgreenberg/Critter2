@@ -6,6 +6,7 @@ module.exports = {
     //entry: './src/client/Projects/Other/ParasiticCleavage/sketch.ts',
     //entry: './src/client/Projects/Other/ParasiticEmission/sketch.ts',
     entry: './src/client/Projects/Other/ToneExperiment/sketch.ts',
+    //entry: './src/client/Projects/Other/ToneExperiment02/sketch.ts',
     /************************************************ */
     module: {
         rules: [

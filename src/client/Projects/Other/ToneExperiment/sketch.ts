@@ -28,8 +28,13 @@ renderer.shadowMap.type = PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
-const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
-
+//const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
+const osc1 = new Tone.Oscillator().toDestination();
+const osc2 = new Tone.Oscillator().toDestination();
+const osc3 = new Tone.Oscillator().toDestination();
+const osc4 = new Tone.Oscillator().toDestination();
+const osc5 = new Tone.Oscillator().toDestination();
+const osc6 = new Tone.Oscillator().toDestination();
 /****************** Custom geometry *******************/
 const te = new ToneExperiment();
 scene.add(te);
@@ -65,7 +70,20 @@ function animate() {
     te.move(time);
     te.print();
     render();
-    osc.frequency.rampTo(te.partBlue.pos.y + 500, 2);
+    
+    //const osc1 = new Tone.Oscillator().toDestination().start();
+    //const osc2 = new Tone.Oscillator().toDestination().start();
+    window.addEventListener('mousedown', e => {  
+        osc1.start(); osc2.start(); 
+        osc3.start(); osc4.start();
+        osc5.start(); osc6.start();
+    });
+    osc1.frequency.rampTo(te.partBlue.pos.y + 500, 2);
+    osc2.frequency.rampTo(te.partRed.pos.y + 500, 2);
+    osc3.frequency.rampTo(te.partGreen.pos.y + 500, 2);
+    osc4.frequency.rampTo(te.partBlack.pos.y + 500, 2);
+    osc5.frequency.rampTo(te.partYellow.pos.y + 500, 2);
+    osc6.frequency.rampTo(te.partWhite.pos.y + 500, 2);
 }
 
 function render() {
@@ -73,17 +91,24 @@ function render() {
 }
 animate();
 
+//window.addEventListener('mousedown', e => { osc1.start(); osc2.start(); });
+
+//window.addEventListener('mousedown', e => { osc1.start(); });
+//const osc1 = new Tone.Oscillator().toDestination().start();
+//const osc2 = new Tone.Oscillator().toDestination().start();
+
 //attach a click listener to a play button
-document.querySelector('button')?.addEventListener('click', async () => {
-    await Tone.start()
-    console.log('audio is ready')
-})
+//document.querySelector('button')?.addEventListener('click', async () => {
+  //  await Tone.start()
+   //console.log('audio is ready')
+//})
 
 //const osc = new Tone.Oscillator().toDestination().start();
 //osc.frequency.rampTo(te.partBlue.pos.y + 500,2);
 
 
-window.addEventListener('mousedown', e => { osc.start(); });
+//window.addEventListener('mousedown', e => { osc.start(); });
+//window.addEventListener('mousedown', e => { Tone.start(); });
 
 // osc.frequency.rampTo(sin(te.partBlue.pos.y * PI / .05) * 800 + 500, 2); });
 //window.addEventListener('mousedown', e => { osc.start();});
