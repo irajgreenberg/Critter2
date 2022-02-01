@@ -90,33 +90,33 @@ function animate() {
     //const osc1 = new Tone.Oscillator().toDestination().start();
     //const osc2 = new Tone.Oscillator().toDestination().start();
     window.addEventListener('mousedown', e => {  
-        osc1.start(); 
+        //osc1.start(); 
         osc2.start(); 
-        osc3.start(); 
-        osc4.start();
-        osc5.start(); 
-        osc6.start();
+        //osc3.start(); 
+        //osc4.start();
+        //osc5.start(); 
+        //osc6.start();
     });
 
     osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
-    panner1.pan.rampTo(te.partBlue.pos.x * (1/402), 0.001);  // .0025 = 1/400 gets out of range errors
+    panner1.pan.rampTo(te.partBlue.pos.x * (1/404), 0.001);  // .0025 = 1/400 gets out of range errors
     reverb1.wet.value = ((te.partBlue.pos.z * -1.0) + 400) * 0.0012498;
     
     osc2.frequency.rampTo(te.partRed.pos.y + 500, 0.25);
-    panner2.pan.rampTo(te.partRed.pos.x * (1/402), 0.001); 
-    reverb2.wet.value = ((te.partRed.pos.z * -1.0) + 400) * (1/804);
+    panner2.pan.rampTo(te.partRed.pos.x * (1/404), 0.001); 
+    reverb2.wet.value = ((te.partRed.pos.z * -1.0) + 400) * (1/850);
     osc3.frequency.rampTo(te.partGreen.pos.y + 500, 0.25);
-    panner3.pan.rampTo(te.partGreen.pos.x * (1/402), 0.001); 
-    reverb3.wet.value = ((te.partGreen.pos.z * -1.0) + 400) * (1/804);
+    panner3.pan.rampTo(te.partGreen.pos.x * (1/404), 0.001); 
+    reverb3.wet.value = ((te.partGreen.pos.z * -1.0) + 400) * (1/850);
     osc4.frequency.rampTo(te.partBlack.pos.y + 500, 0.25);
-    panner4.pan.rampTo(te.partBlack.pos.x * (1/402), 0.001); 
-    reverb4.wet.value = ((te.partBlack.pos.z * -1.0) + 400) * (1/804);
+    panner4.pan.rampTo(te.partBlack.pos.x * (1/404), 0.001); 
+    reverb4.wet.value = ((te.partBlack.pos.z * -1.0) + 400) * (1/850);
     osc5.frequency.rampTo(te.partYellow.pos.y + 500, 0.25);
-    panner5.pan.rampTo(te.partYellow.pos.x * (1/402), 0.001); 
-    reverb5.wet.value = ((te.partYellow.pos.z * -1.0) + 400) * (1/804);
+    panner5.pan.rampTo(te.partYellow.pos.x * (1/404), 0.001); 
+    reverb5.wet.value = ((te.partYellow.pos.z * -1.0) + 400) * (1/850);
     osc6.frequency.rampTo(te.partWhite.pos.y + 500, 0.25);
-    panner6.pan.rampTo(te.partWhite.pos.x * (1/402), 0.001); 
-    reverb6.wet.value = ((te.partWhite.pos.z * -1.0) + 400) * (1/804);
+    panner6.pan.rampTo(te.partWhite.pos.x * (1/404), 0.001); 
+    reverb6.wet.value = ((te.partWhite.pos.z * -1.0) + 400) * (1/850);
 }
 
 function render() {

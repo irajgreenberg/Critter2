@@ -90,6 +90,11 @@ export class ToneExperiment extends Group {
 
     print() {
         //console.log("**************************************************************************");
+        //let maxX: number = 0;
+        if (this.partRed.pos.x > 403) {console.log("Red Cube Max x = ", this.partRed.pos.x);};
+        if (this.partRed.pos.y > 403) {console.log("Red Cube Max y = ", this.partRed.pos.y);};
+        if (this.partRed.pos.z > 403) {console.log("Red Cube Max z = ", this.partRed.pos.z);};
+        //console.log("Red Cube Max x = ", maxX);
         //console.log("Red Cube Position x = ", this.partRed.pos.x);
         //console.log("Red Cube Position y = ", this.partRed.pos.y);
         //console.log("Red Cube Position z = ", this.partRed.pos.z);
@@ -120,5 +125,6 @@ export class ToneExperiment extends Group {
     }
 
 }
+
 
 
