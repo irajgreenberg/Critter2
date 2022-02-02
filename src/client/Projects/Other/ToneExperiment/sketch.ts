@@ -77,6 +77,7 @@ scene.add(spot);
 
 const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
 
+
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -89,18 +90,24 @@ function animate() {
     
     //const osc1 = new Tone.Oscillator().toDestination().start();
     //const osc2 = new Tone.Oscillator().toDestination().start();
+
+    //let toneStart = 0;  
     window.addEventListener('mousedown', e => {  
-        //osc1.start(); 
-        osc2.start(); 
-        //osc3.start(); 
-        //osc4.start();
-        //osc5.start(); 
-        //osc6.start();
+        //if (toneStart = 0){
+        //    Tone.start();
+        //    toneStart = 1;
+        //  }
+        osc1.start(); //blue
+        osc2.start(); //red
+        osc3.start(); //green
+        osc4.start(); //black
+        osc5.start(); //yellow
+        osc6.start(); //white
     });
 
     osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
     panner1.pan.rampTo(te.partBlue.pos.x * (1/404), 0.001);  // .0025 = 1/400 gets out of range errors
-    reverb1.wet.value = ((te.partBlue.pos.z * -1.0) + 400) * 0.0012498;
+    reverb1.wet.value = ((te.partBlue.pos.z * -1.0) + 400) * (1/850);  // 0.0012498
     
     osc2.frequency.rampTo(te.partRed.pos.y + 500, 0.25);
     panner2.pan.rampTo(te.partRed.pos.x * (1/404), 0.001); 
