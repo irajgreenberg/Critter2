@@ -10,6 +10,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ToneExperiment } from './ToneExperiment';
 import * as Tone from 'tone'
 import { PI, sin } from '../../../PByte3/IJGUtils';
+//import { Freeverb } from 'tone';
 
 // create and position camera
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 10000);
@@ -32,8 +33,9 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // Tone Const here  NOTE: effects like reverb first
 //const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
 //const osc1 = new Tone.Oscillator().toDestination();
-let toneStart = 0;  
-const reverb1 = new Tone.Reverb(2).toDestination();
+
+//let toneStart = 0;  
+const reverb1 = new Tone.Reverb(2.5).toDestination();
 const reverb2 = new Tone.Reverb(2).toDestination();
 const reverb3 = new Tone.Reverb(2).toDestination();
 const reverb4 = new Tone.Reverb(2).toDestination();
@@ -78,8 +80,6 @@ scene.add(spot);
 
 const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
 
-
-
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -109,47 +109,66 @@ function animate() {
         osc6.start(); //white
     });
 
-    osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
-    panner1.pan.rampTo(te.partBlue.pos.x * (1/404), 0.001);  // .0025 = 1/400 gets out of range errors
-    let BlueZval = ((te.partBlue.pos.z * -1.0) + 400) * 0.00125; 
-    if (BlueZval > 1.0) {BlueZval = 1.0};
-    if (BlueZval < 0.0) {BlueZval = 0.0};
-    reverb1.wet.value = BlueZval;
+    //osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
+    osc1.frequency.setValueAtTime(te.partBlue.pos.y + 500, 0.01);
+    let blueValX = (te.partBlue.pos.x * 0.0025); 
+    if (blueValX > 1.0) {blueValX = 1.0};
+    if (blueValX < -1.0) {blueValX = -1.0};
+    panner1.pan.setValueAtTime(blueValX, 0.015);
+    let blueValZ = ((te.partBlue.pos.z * -1.0) + 400) * 0.00125; 
+    if (blueValZ > 1.0) {blueValZ = 1.0};
+    if (blueValZ < 0.0) {blueValZ = 0.0};
+    reverb1.wet.value = blueValZ;
     
-    osc2.frequency.rampTo(te.partRed.pos.y + 500, 0.25);
-    panner2.pan.rampTo(te.partRed.pos.x * (1/404), 0.001); 
-    let RedZval = ((te.partRed.pos.z * -1.0) + 400) * 0.00125; 
-    if (RedZval > 1.0) {RedZval = 1.0};
-    if (RedZval < 0.0) {RedZval = 0.0};
-    reverb2.wet.value = RedZval;
+    osc2.frequency.setValueAtTime(te.partRed.pos.y + 500, 0.02);
+    let redValX = (te.partRed.pos.x * 0.0025); 
+    if (redValX > 1.0) {redValX = 1.0};
+    if (redValX < -1.0) {redValX = -1.0};
+    panner2.pan.setValueAtTime(redValX, 0.0025); 
+    let redValZ = ((te.partRed.pos.z * -1.0) + 400) * 0.00125; 
+    if (redValZ > 1.0) {redValZ = 1.0};
+    if (redValZ < 0.0) {redValZ = 0.0};
+    reverb2.wet.value = redValZ;
 
-    osc3.frequency.rampTo(te.partGreen.pos.y + 500, 0.25);
-    panner3.pan.rampTo(te.partGreen.pos.x * (1/404), 0.001); 
-    let GreenZval = ((te.partGreen.pos.z * -1.0) + 400) * 0.00125; 
-    if (GreenZval > 1.0) {GreenZval = 1.0};
-    if (GreenZval < 0.0) {GreenZval = 0.0};
-    reverb3.wet.value = GreenZval;
+    osc3.frequency.setValueAtTime(te.partGreen.pos.y + 500, 0.03);
+    let greenValX = (te.partGreen.pos.x * 0.0025); 
+    if (greenValX > 1.0) {greenValX = 1.0};
+    if (greenValX < -1.0) {greenValX = -1.0};
+    panner3.pan.setValueAtTime(greenValX, 0.035); 
+    let greenValZ = ((te.partGreen.pos.z * -1.0) + 400) * 0.00125; 
+    if (greenValZ > 1.0) {greenValZ = 1.0};
+    if (greenValZ < 0.0) {greenValZ = 0.0};
+    reverb3.wet.value = greenValZ;
 
-    osc4.frequency.rampTo(te.partBlack.pos.y + 500, 0.25);
-    panner4.pan.rampTo(te.partBlack.pos.x * (1/404), 0.001); 
-    let BlackZval = ((te.partBlack.pos.z * -1.0) + 400) * 0.00125; 
-    if (BlackZval > 1.0) {BlackZval = 1.0};
-    if (BlackZval < 0.0) {BlackZval = 0.0};
-    reverb4.wet.value = BlackZval;
+    osc4.frequency.setValueAtTime(te.partBlack.pos.y + 500, 0.04);
+    let blackValX = (te.partBlack.pos.x * 0.0025); 
+    if (blackValX > 1.0) {blackValX = 1.0};
+    if (blackValX < -1.0) {blackValX = -1.0};
+    panner4.pan.setValueAtTime(blackValX, 0.045); 
+    let blackValZ = ((te.partBlack.pos.z * -1.0) + 400) * 0.00125;
+    if (blackValZ > 1.0) {blackValZ = 1.0};
+    if (blackValZ < 0.0) {blackValZ = 0.0};
+    reverb4.wet.value = blackValZ;
 
-    osc5.frequency.rampTo(te.partYellow.pos.y + 500, 0.25);
-    panner5.pan.rampTo(te.partYellow.pos.x * (1/404), 0.001); 
-    let YellowZval = ((te.partYellow.pos.z * -1.0) + 400) * 0.00125; 
-    if (YellowZval > 1.0) {YellowZval = 1.0};
-    if (YellowZval < 0.0) {YellowZval = 0.0};
-    reverb5.wet.value = YellowZval;
+    osc5.frequency.setValueAtTime(te.partYellow.pos.y + 500, 0.05);
+    let yellowValX = (te.partYellow.pos.x * 0.0025); 
+    if (yellowValX > 1.0) {yellowValX = 1.0};
+    if (yellowValX < -1.0) {yellowValX = -1.0};
+    panner5.pan.setValueAtTime(yellowValX, 0.055);
+    let yellowValZ = ((te.partYellow.pos.z * -1.0) + 400) * 0.00125; 
+    if (yellowValZ > 1.0) {yellowValZ = 1.0};
+    if (yellowValZ < 0.0) {yellowValZ = 0.0};
+    reverb5.wet.value = yellowValZ;
 
-    osc6.frequency.rampTo(te.partWhite.pos.y + 500, 0.25);
-    panner6.pan.rampTo(te.partWhite.pos.x * (1/404), 0.001); 
-    let WhiteZval = ((te.partWhite.pos.z * -1.0) + 400) * 0.00125; 
-    if (WhiteZval > 1.0) {WhiteZval = 1.0};
-    if (WhiteZval < 0.0) {WhiteZval = 0.0};
-    reverb6.wet.value = WhiteZval;
+    osc6.frequency.setValueAtTime(te.partWhite.pos.y + 500, 0.06);
+    let whiteValX = (te.partYellow.pos.x * 0.0025); 
+    if (whiteValX > 1.0) {whiteValX = 1.0};
+    if (whiteValX < -1.0) {whiteValX = -1.0};
+    panner6.pan.setValueAtTime(whiteValX, 0.065);
+    let whiteValZ = ((te.partWhite.pos.z * -1.0) + 400) * 0.00125; 
+    if (whiteValZ > 1.0) {whiteValZ = 1.0};
+    if (whiteValZ < 0.0) {whiteValZ = 0.0};
+    reverb6.wet.value = whiteValZ;
 }
 
 function render() {
