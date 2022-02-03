@@ -32,6 +32,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // Tone Const here  NOTE: effects like reverb first
 //const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
 //const osc1 = new Tone.Oscillator().toDestination();
+let toneStart = 0;  
 const reverb1 = new Tone.Reverb(2).toDestination();
 const reverb2 = new Tone.Reverb(2).toDestination();
 const reverb3 = new Tone.Reverb(2).toDestination();
@@ -78,6 +79,7 @@ scene.add(spot);
 const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
 
 
+
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -91,12 +93,14 @@ function animate() {
     //const osc1 = new Tone.Oscillator().toDestination().start();
     //const osc2 = new Tone.Oscillator().toDestination().start();
 
-    //let toneStart = 0;  
+    
     window.addEventListener('mousedown', e => {  
-        //if (toneStart = 0){
-        //    Tone.start();
-        //    toneStart = 1;
-        //  }
+        //if (toneStart == 0){
+        //Tone.start();
+        //toneStart = 1;
+        //}
+        //console.log("toneStart = ", toneStart);
+        
         osc1.start(); //blue
         osc2.start(); //red
         osc3.start(); //green
@@ -107,29 +111,52 @@ function animate() {
 
     osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
     panner1.pan.rampTo(te.partBlue.pos.x * (1/404), 0.001);  // .0025 = 1/400 gets out of range errors
-    reverb1.wet.value = ((te.partBlue.pos.z * -1.0) + 400) * (1/850);  // 0.0012498
+    let BlueZval = ((te.partBlue.pos.z * -1.0) + 400) * 0.00125; 
+    if (BlueZval > 1.0) {BlueZval = 1.0};
+    if (BlueZval < 0.0) {BlueZval = 0.0};
+    reverb1.wet.value = BlueZval;
     
     osc2.frequency.rampTo(te.partRed.pos.y + 500, 0.25);
     panner2.pan.rampTo(te.partRed.pos.x * (1/404), 0.001); 
-    reverb2.wet.value = ((te.partRed.pos.z * -1.0) + 400) * (1/850);
+    let RedZval = ((te.partRed.pos.z * -1.0) + 400) * 0.00125; 
+    if (RedZval > 1.0) {RedZval = 1.0};
+    if (RedZval < 0.0) {RedZval = 0.0};
+    reverb2.wet.value = RedZval;
+
     osc3.frequency.rampTo(te.partGreen.pos.y + 500, 0.25);
     panner3.pan.rampTo(te.partGreen.pos.x * (1/404), 0.001); 
-    reverb3.wet.value = ((te.partGreen.pos.z * -1.0) + 400) * (1/850);
+    let GreenZval = ((te.partGreen.pos.z * -1.0) + 400) * 0.00125; 
+    if (GreenZval > 1.0) {GreenZval = 1.0};
+    if (GreenZval < 0.0) {GreenZval = 0.0};
+    reverb3.wet.value = GreenZval;
+
     osc4.frequency.rampTo(te.partBlack.pos.y + 500, 0.25);
     panner4.pan.rampTo(te.partBlack.pos.x * (1/404), 0.001); 
-    reverb4.wet.value = ((te.partBlack.pos.z * -1.0) + 400) * (1/850);
+    let BlackZval = ((te.partBlack.pos.z * -1.0) + 400) * 0.00125; 
+    if (BlackZval > 1.0) {BlackZval = 1.0};
+    if (BlackZval < 0.0) {BlackZval = 0.0};
+    reverb4.wet.value = BlackZval;
+
     osc5.frequency.rampTo(te.partYellow.pos.y + 500, 0.25);
     panner5.pan.rampTo(te.partYellow.pos.x * (1/404), 0.001); 
-    reverb5.wet.value = ((te.partYellow.pos.z * -1.0) + 400) * (1/850);
+    let YellowZval = ((te.partYellow.pos.z * -1.0) + 400) * 0.00125; 
+    if (YellowZval > 1.0) {YellowZval = 1.0};
+    if (YellowZval < 0.0) {YellowZval = 0.0};
+    reverb5.wet.value = YellowZval;
+
     osc6.frequency.rampTo(te.partWhite.pos.y + 500, 0.25);
     panner6.pan.rampTo(te.partWhite.pos.x * (1/404), 0.001); 
-    reverb6.wet.value = ((te.partWhite.pos.z * -1.0) + 400) * (1/850);
+    let WhiteZval = ((te.partWhite.pos.z * -1.0) + 400) * 0.00125; 
+    if (WhiteZval > 1.0) {WhiteZval = 1.0};
+    if (WhiteZval < 0.0) {WhiteZval = 0.0};
+    reverb6.wet.value = WhiteZval;
 }
 
 function render() {
     renderer.render(scene, camera);
 }
 animate();
+
 
 //window.addEventListener('mousedown', e => { osc1.start(); osc2.start(); });
 
