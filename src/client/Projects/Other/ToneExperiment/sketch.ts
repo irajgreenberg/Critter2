@@ -44,6 +44,14 @@ const reverb6 = new Tone.Reverb(2).toDestination();
 // === const osc1 = new Tone.Oscillator().toDestination(); // original
 const panner1 = new Tone.Panner(1).connect(reverb1);
 const osc1 = new Tone.Oscillator().connect(panner1);
+//const osc1 = new Tone.MonoSynth({
+//	oscillator: {
+//		type: "sine"
+//	},
+//	envelope: {
+//		attack: 0.1
+//	}
+//}).connect(panner1);
 const panner2 = new Tone.Panner(1).connect(reverb2);
 const osc2 = new Tone.Oscillator().connect(panner2);
 const panner3 = new Tone.Panner(1).connect(reverb3);
@@ -54,6 +62,8 @@ const panner5 = new Tone.Panner(1).connect(reverb5);
 const osc5 = new Tone.Oscillator().connect(panner5);
 const panner6 = new Tone.Panner(1).connect(reverb6);
 const osc6 = new Tone.Oscillator().connect(panner6);
+
+
 /****************** Custom geometry *******************/
 const te = new ToneExperiment();
 scene.add(te);
@@ -100,14 +110,18 @@ function animate() {
         //toneStart = 1;
         //}
         //console.log("toneStart = ", toneStart);
-        
         osc1.start(); //blue
         osc2.start(); //red
         osc3.start(); //green
         osc4.start(); //black
         osc5.start(); //yellow
         osc6.start(); //white
+        Tone.Transport.start();
     });
+    //let osc1Freq = te.partBlue.pos.y + 500;
+    //Tone.Transport.scheduleRepeat(function(time){
+     //   osc1.triggerAttackRelease(440, 0.200, time);
+     //   }, 0.400);
 
     //osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
     osc1.frequency.setValueAtTime(te.partBlue.pos.y + 500, 0.01);
