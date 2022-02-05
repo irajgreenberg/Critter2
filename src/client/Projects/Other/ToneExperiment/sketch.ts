@@ -31,10 +31,7 @@ document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 // Tone Const here  NOTE: effects like reverb first
-//const osc: Tone.Oscillator = new Tone.Oscillator((440), "sine").toDestination();
-//const osc1 = new Tone.Oscillator().toDestination();
 
-//let toneStart = 0;  
 const reverb1 = new Tone.Reverb(2.5).toDestination();
 const reverb2 = new Tone.Reverb(2).toDestination();
 const reverb3 = new Tone.Reverb(2).toDestination();
@@ -62,6 +59,19 @@ const panner5 = new Tone.Panner(1).connect(reverb5);
 const osc5 = new Tone.Oscillator().connect(panner5);
 const panner6 = new Tone.Panner(1).connect(reverb6);
 const osc6 = new Tone.Oscillator().connect(panner6);
+
+const synth = new Tone.PolySynth().toDestination();
+const chordEvent = new Tone.ToneEvent(((time, chord) => {
+	// the chord as well as the exact time of the event
+	// are passed in as arguments to the callback function
+	synth.triggerAttackRelease(chord, 1, time);
+}), ["D4", "E4", "F4"]);
+// The bit beow probably goes in animate() to happen
+// start the chord at the beginning of the transport timeline
+//chordEvent.start();
+// loop it every measure for 8 measures
+//chordEvent.loop = 8;
+//chordEvent.loopEnd = "1m";
 
 
 /****************** Custom geometry *******************/
@@ -104,7 +114,7 @@ function animate() {
     //const osc2 = new Tone.Oscillator().toDestination().start();
 
     
-    window.addEventListener('mousedown', e => {  
+    window.addEventListener('mousedown', e => {      
         //if (toneStart == 0){
         //Tone.start();
         //toneStart = 1;
@@ -116,7 +126,13 @@ function animate() {
         osc4.start(); //black
         osc5.start(); //yellow
         osc6.start(); //white
-        Tone.Transport.start();
+
+        //Tone.Transport.start();
+        // start the chord at the beginning of the transport timeline
+        //chordEvent.start();
+        // loop it every measure for 8 measures
+        //chordEvent.loop = 20;
+        //chordEvent.loopEnd = "1m";
     });
     //let osc1Freq = te.partBlue.pos.y + 500;
     //Tone.Transport.scheduleRepeat(function(time){
@@ -189,6 +205,7 @@ function render() {
     renderer.render(scene, camera);
 }
 animate();
+
 
 
 //window.addEventListener('mousedown', e => { osc1.start(); osc2.start(); });
