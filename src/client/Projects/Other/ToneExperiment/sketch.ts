@@ -30,6 +30,35 @@ document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
 
+
+
+
+/****************** Custom geometry *******************/
+const te = new ToneExperiment();
+scene.add(te);
+/******************************************************/
+
+const ambientTexturesLight = new AmbientLight(0xFFFFFF, .7);
+scene.add(ambientTexturesLight);
+
+const col2 = 0xffEEEE;
+const intensity = 1;
+const light = new DirectionalLight(col2, intensity);
+light.position.set(15.2, -10.2, 180);
+light.castShadow = true;
+scene.add(light);
+
+const spot = new SpotLight(0xffffff, 1);
+spot.position.set(-2, 100, 150);
+spot.castShadow = true;
+spot.shadow.radius = 8; //doesn't work with PCFsoftshadows
+spot.shadow.bias = -0.0001;
+spot.shadow.mapSize.width = 1024 * 4;
+spot.shadow.mapSize.height = 1024 * 4;
+scene.add(spot);
+
+const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
+
 // Tone Const here  NOTE: effects like reverb first
 
 const reverb1 = new Tone.Reverb(2.5).toDestination();
@@ -60,45 +89,18 @@ const osc5 = new Tone.Oscillator().connect(panner5);
 const panner6 = new Tone.Panner(1).connect(reverb6);
 const osc6 = new Tone.Oscillator().connect(panner6);
 
-const synth = new Tone.PolySynth().toDestination();
-const chordEvent = new Tone.ToneEvent(((time, chord) => {
+//const synth = new Tone.PolySynth().toDestination();
+//const chordEvent = new Tone.ToneEvent(((time, chord) => {
 	// the chord as well as the exact time of the event
 	// are passed in as arguments to the callback function
-	synth.triggerAttackRelease(chord, 1, time);
-}), ["D4", "E4", "F4"]);
-// The bit beow probably goes in animate() to happen
+	//synth.triggerAttackRelease(chord, 1, time);
+//}), ["D4", "E4", "F4"]);
+// The bit beow probably goes in animate() to 
 // start the chord at the beginning of the transport timeline
 //chordEvent.start();
 // loop it every measure for 8 measures
 //chordEvent.loop = 8;
 //chordEvent.loopEnd = "1m";
-
-
-/****************** Custom geometry *******************/
-const te = new ToneExperiment();
-scene.add(te);
-/******************************************************/
-
-const ambientTexturesLight = new AmbientLight(0xFFFFFF, .7);
-scene.add(ambientTexturesLight);
-
-const col2 = 0xffEEEE;
-const intensity = 1;
-const light = new DirectionalLight(col2, intensity);
-light.position.set(15.2, -10.2, 180);
-light.castShadow = true;
-scene.add(light);
-
-const spot = new SpotLight(0xffffff, 1);
-spot.position.set(-2, 100, 150);
-spot.castShadow = true;
-spot.shadow.radius = 8; //doesn't work with PCFsoftshadows
-spot.shadow.bias = -0.0001;
-spot.shadow.mapSize.width = 1024 * 4;
-spot.shadow.mapSize.height = 1024 * 4;
-scene.add(spot);
-
-const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
 
 function animate() {
     requestAnimationFrame(animate);
@@ -131,7 +133,7 @@ function animate() {
         // start the chord at the beginning of the transport timeline
         //chordEvent.start();
         // loop it every measure for 8 measures
-        //chordEvent.loop = 20;
+        //chordEvent.loop = 100;
         //chordEvent.loopEnd = "1m";
     });
     //let osc1Freq = te.partBlue.pos.y + 500;
