@@ -10,6 +10,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { ToneExperiment } from './ToneExperiment';
 import * as Tone from 'tone'
 import { PI, sin } from '../../../PByte3/IJGUtils';
+import { ToneWithContext } from 'tone/build/esm/core/context/ToneWithContext';
 //import { Freeverb } from 'tone';
 
 // create and position camera
@@ -59,7 +60,7 @@ scene.add(spot);
 
 const pointLt = new PointLight(0xff0000, 1, 200); light.position.set(0, 50, 100); scene.add(pointLt);
 
-// Tone Const here  NOTE: effects like reverb first
+// Tone Consts here  NOTE: effects like reverb first
 
 const reverb1 = new Tone.Reverb(2.5).toDestination();
 const reverb2 = new Tone.Reverb(2).toDestination();
@@ -95,12 +96,42 @@ const osc6 = new Tone.Oscillator().connect(panner6);
 	// are passed in as arguments to the callback function
 	//synth.triggerAttackRelease(chord, 1, time);
 //}), ["D4", "E4", "F4"]);
-// The bit beow probably goes in animate() to 
+// The bit below probably goes in animate() to 
 // start the chord at the beginning of the transport timeline
 //chordEvent.start();
 // loop it every measure for 8 measures
 //chordEvent.loop = 8;
 //chordEvent.loopEnd = "1m";
+    // //     // start the chord at the beginning of the transport timeline
+    // //     //chordEvent.start();
+    // //     // loop it every measure for 8 measures
+    // //     //chordEvent.loop = 100;
+    // //     //chordEvent.loopEnd = "1m";
+
+    //let osc1Freq = te.partBlue.pos.y + 500;
+    //Tone.Transport.scheduleRepeat(function(time){
+     //   osc1.triggerAttackRelease(440, 0.200, time);
+     //   }, 0.400);
+
+//  GET PERMISION FOR AUDIO -  hold audio starts and animate until granted
+//  Add a button and prestart text here
+let toneStart = 0; 
+console.log("state is suspended (pre click)", Tone.context.state === "suspended");
+window.addEventListener('click', async e => {
+    if (toneStart == 0) {
+        await Tone.start();
+        toneStart = 1;
+        osc1.start(); // blue
+        osc2.start(); //red
+        osc3.start(); //green
+        osc4.start(); //black
+        osc5.start(); //yellow
+        osc6.start(); //white
+        console.log("state is suspended (after click)", Tone.context.state === "suspended");
+        animate();
+    }
+    console.log("toneStart = ", toneStart);  // call starts and animate() only once.
+  });
 
 function animate() {
     requestAnimationFrame(animate);
@@ -111,35 +142,6 @@ function animate() {
     te.move(time);
     te.print();
     render();
-    
-    //const osc1 = new Tone.Oscillator().toDestination().start();
-    //const osc2 = new Tone.Oscillator().toDestination().start();
-
-    
-    window.addEventListener('mousedown', e => {      
-        //if (toneStart == 0){
-        //Tone.start();
-        //toneStart = 1;
-        //}
-        //console.log("toneStart = ", toneStart);
-        osc1.start(); //blue
-        osc2.start(); //red
-        osc3.start(); //green
-        osc4.start(); //black
-        osc5.start(); //yellow
-        osc6.start(); //white
-
-        //Tone.Transport.start();
-        // start the chord at the beginning of the transport timeline
-        //chordEvent.start();
-        // loop it every measure for 8 measures
-        //chordEvent.loop = 100;
-        //chordEvent.loopEnd = "1m";
-    });
-    //let osc1Freq = te.partBlue.pos.y + 500;
-    //Tone.Transport.scheduleRepeat(function(time){
-     //   osc1.triggerAttackRelease(440, 0.200, time);
-     //   }, 0.400);
 
     //osc1.frequency.rampTo(te.partBlue.pos.y + 500, 0.25);
     osc1.frequency.setValueAtTime(te.partBlue.pos.y + 500, 0.01);
@@ -206,7 +208,8 @@ function animate() {
 function render() {
     renderer.render(scene, camera);
 }
-animate();
+//animate();
+
 
 
 
